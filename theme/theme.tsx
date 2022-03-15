@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 
 const mode = {
-  dark: true
+  dark: false
 }
 
 export const theme = createTheme({
@@ -9,7 +9,7 @@ export const theme = createTheme({
     mode: mode.dark ? "dark" : "light",
     ...(mode.dark ? {
       primary: {
-        main: '#3e8d65',
+        main: '#536ae6',
         contrastText: '#fff',
       },
       secondary: {
@@ -35,7 +35,7 @@ export const theme = createTheme({
       },
       background: {
         paper: "#fff",
-        default: "#edecec",
+        default: "#eff0f7",
       },
       text: {
         primary: "#000",

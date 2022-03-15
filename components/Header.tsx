@@ -11,16 +11,13 @@ const LoginRoundedIcon = dynamic(() => import("@mui/icons-material/LoginRounded"
 
 const DrawerMenu = dynamic(() => import("./DrawerMenu"))
 import {pageUrl} from '../utils/url'
-import Cart from './storage/cart'
+
+import {useCart} from '../utils/provider/cart'
 
 import { selectUser } from '../redux/slices/user'
 import { useAppSelector } from '../redux/hooks'
 
-interface IHeader {
-    trg?: number,
-}
-
-export default function Header({trg}:IHeader) {
+export default function Header() {
 
     const Styles: any = {
         boxWrapper: {display: 'flex', justifyContent: 'space-between', alignItems: 'center', gridGap: '1vw', p: 1},
@@ -29,16 +26,15 @@ export default function Header({trg}:IHeader) {
     }
 
     const [toggleMenu, setToggleMenu] = React.useState(false)
-    const [getCart, setCart] = React.useState(Cart.dataInit)
+    
     const User = useAppSelector(selectUser)
+    const {getCart} = useCart()
 
     const OpenDrawerMenu = () => setToggleMenu(true)
 
-    React.useEffect(() => {setCart(Cart.getStorage())},[trg])
-
     return (
     <>
-        <AppBar position="static" sx={{ boxShadow: 0 }}>
+        <AppBar position="static" sx={{ boxShadow: 0, bgcolor: 'background.paper' }}>
             <Toolbar>
                 <Container maxWidth="lg">
                     <Box sx={Styles.boxWrapper}>
@@ -52,7 +48,7 @@ export default function Header({trg}:IHeader) {
                                 !User.data.auth ? (
                                     <NextLink href={pageUrl.login} passHref>
                                         <IconButton>
-                                            <LoginRoundedIcon/>
+                                            <LoginRoundedIcon />
                                         </IconButton>
                                     </NextLink>
                                     ) : (

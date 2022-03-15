@@ -8,15 +8,15 @@ const LayoutPage = dynamic(() => import("../../components/LayoutPage"))
 import {Box, Typography, Paper, Fade, Button} from '@mui/material'
 
 import {products} from '../../utils/data'
-import Cart from '../../components/storage/cart'
+
+import {useCart} from '../../utils/provider/cart'
 
 export default function ProductPage() {
 
     const router = useRouter()
 
-    const [existProduct, setExistProduct] = React.useState(false)
-    const [trg, setTrg] = React.useState(0)
-    
+    const {getCart, Increase} = useCart()
+
     const detail:any = products.find( data => data.id === Number(router.query.id) ? data : undefined)
 
     const Styles: any = {
@@ -24,13 +24,17 @@ export default function ProductPage() {
         image: { maxWidth: 500, width: '100%', height: '100%' },
     }
 
-    const ActionTrg = () => setTrg(state => state + 1)
-    const AddToCart = () => {Cart.increase({data: detail != undefined ? detail: false});ActionTrg()}
-    
-    React.useEffect(() => {Cart.findProduct({data: detail != undefined ? detail: false, setExistProduct})}, [detail, trg])
+    const AddToCart = () => {Increase({data: detail != undefined ? detail: false})}
+
+    const FindProduct = () => {
+        const exist = getCart.data.find( prop => prop.id === Number(router.query.id))
+
+        if(exist) { return true }
+        return false
+    }
     
     return (
-        <LayoutPage title="Product Page" trg={trg}>
+        <LayoutPage title="Product Page">
             
         {
             detail != undefined && (
@@ -52,7 +56,7 @@ export default function ProductPage() {
                     <Box sx={{ width: '100%' }}>
                         <Typography variant="h5" sx={{ my: 1 }}>{detail.name}</Typography>
                         <Typography variant="h3" sx={{ my: 1 }}>{detail.price} $</Typography>
-                        <Button disabled={existProduct} variant="contained" sx={{ my: 1 }} onClick={AddToCart}>Add to card</Button>
+                        <Button disabled={FindProduct()} variant="contained" sx={{ my: 1 }} onClick={AddToCart}>Add to card</Button>
                     </Box>
                 </Paper>
             </Fade>

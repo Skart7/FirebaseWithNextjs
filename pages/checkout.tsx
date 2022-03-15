@@ -10,10 +10,10 @@ const BlockUserData = dynamic(() => import("../components/checkout/blocks/userda
 const BlockPayment = dynamic(() => import("../components/checkout/blocks/payment"))
 const BlockComment = dynamic(() => import("../components/checkout/blocks/comment"))
 
-import Cart from '../components/storage/cart'
 import { selectUser } from '../redux/slices/user'
 import { useAppSelector } from '../redux/hooks'
 import { BASE_URL } from '../utils/url'
+import {useCart} from '../utils/provider/cart'
 
 import { Box, Grow, Typography, Divider, Paper, Button } from '@mui/material'
 
@@ -29,9 +29,7 @@ export default function Checkout() {
 
     const User = useAppSelector(selectUser)
     const router = useRouter()
-
-    const [getCart, setCart] = React.useState(Cart.dataInit)
-    React.useEffect(() => {setCart(Cart.getStorage())},[])
+    const {getCart, DeleteStorage} = useCart()
 
     const [uData, setuData] = React.useState({email:'',name:''})
     const HandleChangeUserData = (e:any) => setuData({...uData, [e.target.name]:e.target.value})
@@ -54,7 +52,7 @@ export default function Checkout() {
             orderstatus: payment === 'card' ? true: false
         }
         await axios.post(`${BASE_URL}/api/order/create,`, {data})
-        await Cart.deleteStorage()
+        await DeleteStorage()
         return router.push('/orders')
     }
 

@@ -4,10 +4,12 @@ import { useRouter } from 'next/router'
 
 import {Box, Typography, Button, Divider, Paper, Grow} from '@mui/material'
 import { pageUrl } from '../utils/url'
-import Cart from '../components/storage/cart'
+import {useCart} from '../utils/provider/cart'
 
 const LayoutPage = dynamic(() => import("../components/LayoutPage"))
 const ShoppingCartCard = dynamic(() => import("../components/cart/card"))
+
+
 
 export default function ShoppingCart() {
 
@@ -18,14 +20,10 @@ export default function ShoppingCart() {
     }
 
     const router = useRouter()
-
-    const [getCart, setCart] = React.useState(Cart.dataInit)
-    const [trg, setTrg] = React.useState(0)
-
-    React.useEffect(() => {setCart(Cart.getStorage())},[trg])
+    const {getCart} = useCart()
 
     return (
-    <LayoutPage title="Cart" trg={trg}>
+    <LayoutPage title="Cart">
 
         <Grow in={true}>
             <Box>
@@ -40,7 +38,7 @@ export default function ShoppingCart() {
                     {
                         getCart.data.length > 0 && (
                             getCart.data.map( (data:any) => (
-                                <ShoppingCartCard key={data.id} data={data} setTrg={setTrg} />
+                                <ShoppingCartCard key={data.id} data={data} />
                             ))
                         )
                     }

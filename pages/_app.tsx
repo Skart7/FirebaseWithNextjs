@@ -7,25 +7,24 @@ import axios from 'axios'
 import {theme} from '../theme/theme'
 import createEmotionCache  from '../utils/theme'
 
-import Cart from '../components/storage/cart'
 import { wrapper } from '../redux/store'
 import { setUser } from '../redux/slices/user'
 import { BASE_URL } from '../utils/url'
+
+import {CartProvider} from '../utils/provider/cart'
 
 const clientSideEmotionCache = createEmotionCache()
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
-  React.useEffect(() => {
-    Cart.init()
-  }, [])
-
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <CartProvider>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </CartProvider>
       </ThemeProvider>
     </CacheProvider>
   )

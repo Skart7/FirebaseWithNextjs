@@ -11,10 +11,9 @@ import {Container, Box} from '@mui/material'
 interface ILayoutPage {
     title: string,
     children: any,
-    trg?: number,
 }
 
-export default function LayoutPage({title, children, trg}:ILayoutPage) {
+export default function LayoutPage({title, children}:ILayoutPage) {
 
     return (
     <>
@@ -23,7 +22,7 @@ export default function LayoutPage({title, children, trg}:ILayoutPage) {
         </Head>
 
         <Box sx={defaultStyles.layoutPage}>
-            <Header trg={trg} />
+            <Header />
             <Container maxWidth="lg" sx={defaultStyles.container}>{children}</Container>
             <Footer/>
         </Box>
