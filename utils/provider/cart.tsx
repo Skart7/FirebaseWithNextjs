@@ -57,7 +57,7 @@ export function CartProvider({children}:Props) {
       
         if(existProduct) {
           existProduct.count++
-          existProduct.total_price = (parseInt(existProduct.PRICE) * existProduct.COUNT)
+          existProduct.total_price = (parseInt(existProduct.price) * existProduct.count)
         }
         else {
           storage.data.push({ 
@@ -67,7 +67,8 @@ export function CartProvider({children}:Props) {
             stock: Number(data.qty),
             price: Number(data.price),
             count: 1,
-            total_price: Number(data.price)
+            total_price: Number(data.price),
+            category: data.category
           })
         }
         getAmount(storage)
@@ -117,7 +118,6 @@ export function CartProvider({children}:Props) {
     React.useEffect(() => {
         Init()
         setCart(GetStorage())
-        console.log('effect')
     }, [trigger])
 
     const value = {

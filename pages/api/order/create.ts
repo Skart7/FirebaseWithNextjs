@@ -15,7 +15,7 @@ handler.post(async (req:NextApiRequest, res:NextApiResponse) => {
                 uid: data.uid, 
                 comment: data.comment, 
                 payment: data.payment, 
-                cart: data.getCart, 
+                cart: data.cart, 
                 prepayment: data.prepayment, 
                 orderstatus: data.orderstatus
             })

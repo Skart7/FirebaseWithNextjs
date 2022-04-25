@@ -2,7 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import NextLink from 'next/link'
 
-import {Box,AppBar,Toolbar,Container,IconButton,Typography,Badge} from '@mui/material'
+import {Box,AppBar,Toolbar,Container,IconButton,Typography,Badge, Divider} from '@mui/material'
 
 const MenuRoundedIcon = dynamic(() => import("@mui/icons-material/MenuRounded"))
 const LocalMallRoundedIcon = dynamic(() => import("@mui/icons-material/LocalMallRounded"))
@@ -10,6 +10,8 @@ const PersonRoundedIcon = dynamic(() => import("@mui/icons-material/PersonRounde
 const LoginRoundedIcon = dynamic(() => import("@mui/icons-material/LoginRounded"))
 
 const DrawerMenu = dynamic(() => import("./DrawerMenu"))
+const LoginModal = dynamic(() => import("./modal/login"))
+
 import {pageUrl} from '../utils/url'
 
 import {useCart} from '../utils/provider/cart'
@@ -26,6 +28,7 @@ export default function Header() {
     }
 
     const [toggleMenu, setToggleMenu] = React.useState(false)
+    const [openLogin, setOpenLogin] = React.useState(false)
     
     const User = useAppSelector(selectUser)
     const {getCart} = useCart()
@@ -34,7 +37,7 @@ export default function Header() {
 
     return (
     <>
-        <AppBar position="static" sx={{ boxShadow: 0, bgcolor: 'background.paper' }}>
+        <AppBar position="static" sx={{ boxShadow: 0, bgcolor: 'background.default' }}>
             <Toolbar>
                 <Container maxWidth="lg">
                     <Box sx={Styles.boxWrapper}>
@@ -46,11 +49,9 @@ export default function Header() {
                             {
                                 (
                                 !User.data.auth ? (
-                                    <NextLink href={pageUrl.login} passHref>
-                                        <IconButton>
-                                            <LoginRoundedIcon />
-                                        </IconButton>
-                                    </NextLink>
+                                    <IconButton onClick={() => setOpenLogin(true)}>
+                                        <LoginRoundedIcon />
+                                    </IconButton>
                                     ) : (
                                     <NextLink href={pageUrl.account} passHref>
                                         <IconButton>
@@ -70,7 +71,16 @@ export default function Header() {
                 </Container>
             </Toolbar>
         </AppBar>
+        <Divider />
 
+        {
+            !User.data.auth && (
+            <LoginModal 
+                openLogin={openLogin} 
+                setOpenLogin={setOpenLogin}
+            />
+            )
+        }
         <DrawerMenu 
             toggleMenu={toggleMenu}
             setToggleMenu={setToggleMenu}

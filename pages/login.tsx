@@ -4,9 +4,12 @@ import dynamic from 'next/dynamic'
 import {useRouter} from 'next/router'
 import axios from 'axios'
 
-import {Box,Button,Typography,Container, Paper, Fade} from '@mui/material'
+import {Box,Button,Typography,Container, Paper, Grow, Divider} from '@mui/material'
 const TextField = dynamic(() => import("@mui/material/TextField"))
 const Loading = dynamic(() => import("../components/Loading"))
+
+const KeyboardBackspaceRoundedIcon = dynamic(() => import("@mui/icons-material/KeyboardBackspaceRounded"))
+
 
 import {defaultStyles} from '../theme/theme'
 import { BASE_URL } from '../utils/url'
@@ -15,7 +18,7 @@ import { useAppSelector } from '../redux/hooks'
 
 interface IHandleChangeValue {
     target: HTMLInputElement
-  }
+}
 
 const Login: NextPage = () => {
 
@@ -94,14 +97,17 @@ const Login: NextPage = () => {
         {
             User.data.auth ? <Loading/> : 
             <Container maxWidth="lg" sx={Styles.container}>
-            <Fade in={true}>
+            <Grow in={true}>
                 <Paper sx={Styles.centerId}>
-                    <Box sx={{ maxWidth: 600, width: '100%', p: 1 }}>
-                    <Box sx={Styles.header}><Typography variant="h6">Login with {process.env.WEBNAME}</Typography></Box>
+                    <Box sx={{ maxWidth: 350, width: '100%', p: 1 }}>
+                        <Box sx={Styles.header}>
+                            <Typography variant="h6">Login with {process.env.WEBNAME}</Typography>
+                        </Box>
                         <Box sx={{ py: 2 }}>
                             <TextField 
                                 variant="outlined"
                                 fullWidth
+                                size="small"
                                 label="Email"
                                 type="email"
                                 name="email"
@@ -113,6 +119,7 @@ const Login: NextPage = () => {
                             <TextField 
                                 variant="outlined"
                                 fullWidth
+                                size="small"
                                 label="Password"
                                 type="password"
                                 sx={Styles.textfield}
@@ -122,13 +129,16 @@ const Login: NextPage = () => {
                             />
                         </Box>
                         <Box sx={Styles.footer}>
-                            <Button variant="text" onClick={Back}>Back</Button>
-                            <Button variant="outlined" onClick={SubmitFormCreate}>Create</Button>
-                            <Button variant="contained" onClick={SubmitFormLogin}>Login</Button>
+                            <Button variant="contained" fullWidth onClick={SubmitFormLogin}>Login</Button>
+                        </Box>
+                        <Divider sx={{ py: 1 }} />
+                        <Box sx={Styles.footer}>
+                            <Button variant="text" onClick={Back}><KeyboardBackspaceRoundedIcon /></Button>
+                            <Button variant="text" onClick={SubmitFormCreate}>Create</Button>
                         </Box>
                     </Box>
                 </Paper>
-            </Fade>
+            </Grow>
         </Container>
         }
 

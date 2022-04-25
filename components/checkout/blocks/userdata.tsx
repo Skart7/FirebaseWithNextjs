@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 
 const TextField = dynamic(() => import("@mui/material/TextField"))
 
-import {Paper, Box, Typography} from '@mui/material'
+import {Paper, Box} from '@mui/material'
 
 interface IUserData {
     uData: {name: string, email: string},
@@ -22,7 +22,6 @@ export default function BlockUserData({uData, HandleChangeUserData,email,name}:I
     return (
     <>
         <Paper sx={Styles.paper}>
-            <Typography variant="h6" sx={Styles.title}>UserData</Typography>
             <Box>
                 <TextField
                     variant="outlined"

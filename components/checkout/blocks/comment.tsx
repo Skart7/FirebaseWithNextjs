@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 
 const TextField = dynamic(() => import("@mui/material/TextField"))
 
-import {Paper, Box, Typography} from '@mui/material'
+import {Paper, Box} from '@mui/material'
 
 interface IComment {
     HandleChangeComment: (e: any) => void,
@@ -20,7 +20,6 @@ export default function BlockComment({HandleChangeComment,comment}:IComment) {
     return (
     <>
         <Paper sx={Styles.paper}>
-            <Typography variant="h6" sx={Styles.title}>Comment</Typography>
             <Box>
                 <TextField
                     variant="outlined"

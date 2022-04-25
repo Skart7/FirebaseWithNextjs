@@ -9,7 +9,7 @@ export const theme = createTheme({
     mode: mode.dark ? "dark" : "light",
     ...(mode.dark ? {
       primary: {
-        main: '#536ae6',
+        main: '#4f60d6',
         contrastText: '#fff',
       },
       secondary: {
@@ -41,6 +41,9 @@ export const theme = createTheme({
         primary: "#000",
         secondary: "#000",
       },
+      success: {
+        main: '#2e7d32'
+      }
     })
   },
   ...(mode.dark ? {
@@ -110,32 +113,38 @@ export const theme = createTheme({
     h1: {
       fontWeight: 700,
       fontFamily: 'Roboto, sans-serif',
-      fontSize: '40px'
+      fontSize: '40px',
+      color: '#000'
     },
     h2: {
       fontWeight: 700,
       fontFamily: 'Roboto, sans-serif',
-      fontSize: '35px'
+      fontSize: '35px',
+      color: '#000'
     },
     h3: {
       fontWeight: 700,
       fontFamily: 'Roboto, sans-serif',
-      fontSize: '30px'
+      fontSize: '30px',
+      color: '#000'
     },
     h4: {
       fontWeight: 700,
       fontFamily: 'Roboto, sans-serif',
-      fontSize: '25px'
+      fontSize: '25px',
+      color: '#000'
     },
     h5: {
       fontWeight: 700,
       fontFamily: 'Roboto, sans-serif',
-      fontSize: '20px'
+      fontSize: '20px',
+      color: '#000'
     },
     h6: {
       fontWeight: 700,
       fontFamily: 'Roboto, sans-serif',
-      fontSize: '16px'
+      fontSize: '16px',
+      color: '#000'
     }
   }
 })

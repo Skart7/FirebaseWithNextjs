@@ -9,6 +9,7 @@ const CheckoutCardForCard = dynamic(() => import("../components/checkout/card"))
 const BlockUserData = dynamic(() => import("../components/checkout/blocks/userdata"))
 const BlockPayment = dynamic(() => import("../components/checkout/blocks/payment"))
 const BlockComment = dynamic(() => import("../components/checkout/blocks/comment"))
+const SnackbarComp = dynamic(() => import("../components/Snackbar"))
 
 import { selectUser } from '../redux/slices/user'
 import { useAppSelector } from '../redux/hooks'
@@ -31,29 +32,75 @@ export default function Checkout() {
     const router = useRouter()
     const {getCart, DeleteStorage} = useCart()
 
+    const alertDefault = { message: "", severity: "", status: false }
+    const [alert, setAlert] = React.useState<{status: boolean, message: string, severity: any}>(alertDefault)
+
+    const AlertMessage = {
+        emptyUserData: "Fill in user data",
+        emptyPaymentMethod: "Select a payment method",
+        loading: "Wait a bit",
+        success: "Success!"
+    }
+
     const [uData, setuData] = React.useState({email:'',name:''})
-    const HandleChangeUserData = (e:any) => setuData({...uData, [e.target.name]:e.target.value})
+    const HandleChangeUserData = (e:any) => {
+        setuData({...uData, [e.target.name]:e.target.value})
+        setAlert(alertDefault)
+    }
 
     const [payment, setPayment] = React.useState('select payment')
-    const HandleChangePayment = (e:any) => setPayment(e.target.value)
+    const HandleChangePayment = (e:any) => {
+        setPayment(e.target.value)
+        setAlert(alertDefault)
+    }
 
     const [comment, setComment]= React.useState('')
-    const HandleChangeComment = (e:any) => setComment(e.target.value)
+    const HandleChangeComment = (e:any) =>{
+        setComment(e.target.value)
+        setAlert(alertDefault)
+    }
+
+    const [getSnackbar, setSnackbar] = React.useState(false)
 
     const SubmitForm = async () => {
+
+        const name = uData.name || User.data.name
+        const email = uData.email || User.data.email
+        const uid = User.data.uid
+
+        if(name === '' || email === "") {
+            setAlert({message: AlertMessage.emptyUserData, severity: 'error', status: true})
+            setSnackbar(true)
+            return
+        }
+        if(payment === 'select payment') {
+            setAlert({message: AlertMessage.emptyPaymentMethod, severity: 'error', status: true})
+            setSnackbar(true)
+            return
+        }
+
+        setAlert({message: AlertMessage.loading, severity: 'info', status: true})
+        setSnackbar(true)
+
         const data = {
-            name: uData.name || User.data.name, 
-            email: uData.email || User.data.email, 
-            uid: User.data.uid, 
-            comment: comment, 
-            payment: payment, 
+            name, 
+            email, 
+            uid, 
+            comment, 
+            payment, 
             cart: getCart, 
             prepayment: payment === 'card' ? getCart.amount : 0, 
             orderstatus: payment === 'card' ? true: false
         }
-        await axios.post(`${BASE_URL}/api/order/create,`, {data})
-        await DeleteStorage()
-        return router.push('/orders')
+        await axios.post(`${BASE_URL}/api/order/create`, {data}).then( res => {
+            if(res.data.msg) {
+                DeleteStorage()
+                setAlert({message: AlertMessage.success, severity: 'success', status: true})
+                setSnackbar(true)
+                return router.push('/orders')
+            }
+        })
+        
     }
 
     return (
@@ -79,17 +126,8 @@ export default function Checkout() {
                         comment={comment}
                         HandleChangeComment={HandleChangeComment}
                     />
-                    <Box>
-                       <Button
-                        sx={{ width: '100%', mt: 2}}
-                        variant="contained"
-                        onClick={SubmitForm}
-                       >Submit order</Button>
-                    </Box>
                 </Box>
                 <Paper sx={Styles.contentBoxRight}>
-                    <Typography variant="h6">New Order</Typography>
-
                     <Box sx={Styles.contentCart}>
                     {
                         getCart.data.map(data => (
@@ -99,14 +137,31 @@ export default function Checkout() {
                     </Box>
                     <Divider />
                     <Box sx={Styles.contentCartBottom}>
-                        <Typography variant="body1">Total {getCart.amount}</Typography>
-                        <Typography variant="body1">Count {getCart.qty}</Typography>
+                        <Typography variant="h5">Total {getCart.amount} $</Typography>
+                        <Typography variant="h6">Count {getCart.qty}</Typography>
+                    </Box>
+                    <Box>
+                    <Button
+                        sx={{ width: '100%', mt: 2}}
+                        variant="contained"
+                        onClick={SubmitForm}
+                        disabled={alert.status}
+                    >Submit order</Button>
                     </Box>
                 </Paper>
             </Box>
         </Grow>
         </LayoutPage>
     }
+
+
+    <SnackbarComp 
+        getSnackbar={getSnackbar}
+        setSnackbar={setSnackbar}
+        message={alert.message}
+        severity={alert.severity}
+    />
+
     </>
     )
 }

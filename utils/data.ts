@@ -1,72 +1,107 @@
-export const products = [
-    {
-        id: 1,
-        name: "Some amazing product 1",
-        price: 9,
-        qty: 40,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 2,
-        name: "Some amazing product 2",
-        price: 59,
-        qty: 99,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 3,
-        name: "Some amazing product 3",
-        price: 29,
-        qty: 74,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 4,
-        name: "Some amazing product 4",
-        price: 99,
-        qty: 51,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 5,
-        name: "Some amazing product 5",
-        price: 19,
-        qty: 24,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 6,
-        name: "Some amazing product 6",
-        price: 199,
-        qty: 10,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 7,
-        name: "Some amazing product 7",
-        price: 199,
-        qty: 10,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 8,
-        name: "Some amazing product 8",
-        price: 999,
-        qty: 25,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 9,
-        name: "Some amazing product 9",
-        price: 599,
-        qty: 12,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-    {
-        id: 10,
-        name: "Some amazing product 10",
-        price: 59,
-        qty: 55,
-        image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
-    },
-]
+
+export const products = new Array(241).fill('').map( (val, i) => ({ 
+    id: i+1,
+    name: `product ${i+1}`,
+    price: (i+1)*5,
+    qty: 5,
+    image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+ }))
+
+ export const data = [
+     {
+         id: 1,
+         name: "Rose",
+         price: 12,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c1"
+     },
+     {
+         id: 2,
+         name: "Lily",
+         price: 15,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+     {
+         id: 3,
+         name: "Tulip",
+         price: 20,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c3"
+     },
+     {
+         id: 4,
+         name: "Orchid",
+         price: 35,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+     {
+         id: 5,
+         name: "Carnation",
+         price: 55,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c1"
+     },
+     {
+         id: 6,
+         name: "Hyacinth",
+         price: 67,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+     {
+         id: 7,
+         name: "Peruvian Lily",
+         price: 76,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+     {
+         id: 8,
+         name: "Chrysanthemum",
+         price: 35,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+     {
+         id: 9,
+         name: "FREESIA",
+         price: 48,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+     {
+         id: 10,
+         name: "HYACINTH",
+         price: 76,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c1"
+     },
+     {
+         id: 11,
+         name: "GLADIOLUS",
+         price: 96,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c4"
+     },
+     {
+         id: 12,
+         name: "ANEMONE",
+         price: 105,
+         qty: 5,
+         image: "https://res.cloudinary.com/sktema2001/image/upload/v1644499844/oyt7wx5ujzaicvmvjtyc.png",
+         tag: "c2"
+     },
+ ]

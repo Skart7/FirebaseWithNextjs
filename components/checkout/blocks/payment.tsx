@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 
 const TextField = dynamic(() => import("@mui/material/TextField"))
 
-import {Paper, Box, Typography, MenuItem} from '@mui/material'
+import {Paper, Box, MenuItem} from '@mui/material'
 
 interface IPayment {
     HandleChangePayment: (e: any) => void,
@@ -21,7 +21,6 @@ export default function BlockPayment({HandleChangePayment, payment}:IPayment) {
     <>
 
     <Paper sx={Styles.paper}>
-        <Typography variant="h6" sx={Styles.title}>Payment</Typography>
         <Box>
             <TextField
                 variant="outlined"
